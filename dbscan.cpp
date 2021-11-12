@@ -35,7 +35,6 @@ void check(std::vector<Point>& points) {
             unclassified++;
         }
     }
-    std::cout << classified << " " << noise << " " << unclassified << "\n";
 }
 
 float get_distance(const Point& p, const Point& q) {
@@ -122,7 +121,7 @@ std::vector<Point> read_file() {
 
     for (int i = 0; i < coordinates.size(); i++) {
         if (i%4 == 0) {
-            x = std::stof(coordinates[i]);
+            x = std::stof((coordinates[i]));
         } else if (i%4 == 1) {
             y = std::stof(coordinates[i]);
         } else if (i%4 == 2) {
@@ -136,17 +135,17 @@ std::vector<Point> read_file() {
 
 int main() {
     std::vector<Point> points = read_file();
-    const float epsilon = 0.75 * 0.75;
+    const float epsilon = 0.75;
     const int min_points = 4;
     std::unordered_map<int, std::vector<Point>> clusters = create_cluster_map(points, epsilon, min_points);
-    std::cout << clusters.size() << "\n";
     check(points);
 
     int sum = 0;
     for (auto map:clusters) {
-        sum += map.second.size();
+        for (auto point:map.second) {
+            std::cout << point.x << "," << point.y << "," << point.z << "," << point.cluster_id << "\n";
+        }
     }
-    std::cout << sum << "\n";
 
     return 0;
 }

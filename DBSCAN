@@ -1,0 +1,6 @@
+#!/bin/bash
+
+g++ dbscan.cpp -o dbscan.out
+./dbscan.out > output.txt
+
+python3 plot.py
