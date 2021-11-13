@@ -1,11 +1,11 @@
 from collections import defaultdict
 from itertools import cycle
-cycol = cycle('bgrcmk')
-
 
 import matplotlib
 import matplotlib.pyplot as plt
+
 matplotlib.use('Agg')
+cycol = cycle('bgrcmykw')
 
 def read_output(filename):
     x = defaultdict(list)
@@ -34,7 +34,7 @@ def plot_clusters(x, y, z):
     for cluster in x:
         ax.scatter(x[cluster], y[cluster], z[cluster], c=next(cycol))
     
-    fig.savefig("test2.png")
+    fig.savefig("test.png")
 
 if __name__ == "__main__":
     x, y, z = read_output('output.txt')
