@@ -34,8 +34,8 @@ def plot_clusters(x, y, z):
     for cluster in x:
         ax.scatter(x[cluster], y[cluster], z[cluster], c=next(cycol))
     
-    fig.savefig("test.png")
+    fig.savefig("data/test.png")
 
 if __name__ == "__main__":
-    x, y, z = read_output('output.txt')
+    x, y, z = read_output('data/output.txt')
     plot_clusters(x, y, z)
