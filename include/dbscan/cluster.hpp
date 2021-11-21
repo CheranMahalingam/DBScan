@@ -20,6 +20,8 @@ public:
 
     BoundingBox ConstructBoundingBox();
 
+    double IntraClusterDistance();
+
     int id() const;
 
     std::vector<Point> points;

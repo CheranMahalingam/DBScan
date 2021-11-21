@@ -1,9 +1,12 @@
 #include <dbscan/dbscan.hpp>
 #include <dbscan/cluster.hpp>
 
+#include <algorithm>
+#include <stdexcept>
+
 namespace dbscan {
 
-Dbscan::Dbscan(std::vector<Point> const& points, const int min_points, const double epsilon)
+Dbscan::Dbscan(const std::vector<Point>& points, const int min_points, const double epsilon)
     : points(points), clusters({}), min_points(min_points), epsilon(epsilon) {}
 
 std::vector<int> Dbscan::RegionQuery(const int current_index) {

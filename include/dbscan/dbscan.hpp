@@ -4,12 +4,13 @@
 #include <dbscan/cluster.hpp>
 
 #include <vector>
+#include <tuple>
 
 namespace dbscan {
 
 class Dbscan {
 public:
-    Dbscan(std::vector<Point> const& points, const int min_points, const double epsilon);
+    Dbscan(const std::vector<Point>& points, const int min_points, const double epsilon);
 
     std::vector<int> RegionQuery(const int current_index);
 

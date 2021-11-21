@@ -24,6 +24,19 @@ Cluster::BoundingBox Cluster::ConstructBoundingBox() {
     return new_box;
 }
 
+double Cluster::IntraClusterDistance() {
+    double total_distances = 0;
+    int total_comparisons = 0;
+    for (int i = 0; i < points.size(); i++) {
+        for (int j = i + 1; j < points.size(); j++) {
+            total_distances += points[i].EuclideanDistance(points[j]);
+            total_comparisons++;
+        }
+    }
+    double avg = total_distances/total_comparisons;
+    return avg;
+}
+
 int Cluster::id() const {
     return id_;
 }

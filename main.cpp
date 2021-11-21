@@ -1,4 +1,4 @@
-#include <dbscan/dbscan.hpp>
+#include <dbscan/evaluate.hpp>
 #include <dbscan/point.hpp>
 
 #include <fstream>
@@ -35,15 +35,13 @@ std::vector<dbscan::Point> read_file() {
 
 int main() {
     std::vector<dbscan::Point> points = read_file();
-    const double epsilon = 0.76;
-    const int min_points = 4;
 
-    dbscan::Dbscan scan(points, min_points, epsilon);
-    scan.CreateClusters();
-
-    for (auto cluster:scan.clusters) {
-        std::cout << cluster;
-    }
+    dbscan::Evaluate check;
+    double epsilon;
+    int min_points;
+    double score;
+    std::tie(epsilon, score, min_points) = check.TuneParams(points);
+    std::cout << epsilon << " " << min_points << " " << score << "\n";
 
     return 0;
 }
