@@ -10,19 +10,25 @@ namespace dbscan {
 class Cluster {
 public:
     struct BoundingBox {
-        double x_min, y_min, z_min;
-        double x_max, y_max, z_max;
-        BoundingBox(double x_min, double y_min, double z_min, double x_max, double y_max, double z_max)
-            : x_min(x_min), y_min(y_min), z_min(z_min), x_max(x_max), y_max(y_max), z_max(z_max) {} 
+        double x_center, y_center, z_center;
+        double x_dist, y_dist, z_dist;
+        BoundingBox(double x, double y, double z, double x_dist, double y_dist, double z_dist)
+            : x_center(x), y_center(y), z_center(z), x_dist(x_dist), y_dist(y_dist), z_dist(z_dist) {} 
     };
 
-    Cluster(std::vector<Point> const& points);
+    Cluster(std::vector<Point> const& new_points);
 
     BoundingBox ConstructBoundingBox();
 
     double IntraClusterDistance();
 
     int id() const;
+
+    double magnitude() const;
+
+    double azimuth() const;
+
+    double elevation() const;
 
     std::vector<Point> points;
 
@@ -32,6 +38,9 @@ public:
 
 private:
     int id_;
+    double magnitude_;
+    double azimuth_;
+    double elevation_;
 };
 
 }

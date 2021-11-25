@@ -25,4 +25,16 @@ double Point::z() const {
     return z_;
 }
 
+double Point::magnitude() const {
+    return magnitude_;
+}
+
+double Point::azimuth() const {
+    return azimuth_;
+}
+
+double Point::elevation() const {
+    return elevation_;
+}
+
 }
