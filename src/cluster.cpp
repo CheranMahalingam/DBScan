@@ -5,23 +5,24 @@
 namespace dbscan {
 
 Cluster::Cluster(std::vector<Point> const& new_points) {
-        id_ = current_id;
-        points = new_points;
+    id_ = current_id;
+    points = new_points;
 
-        double total_magnitude = 0;
-        double total_azimuth = 0;
-        double total_elevation = 0;
-        for (auto point:new_points) {
-            total_magnitude += point.magnitude();
-            total_azimuth += point.azimuth();
-            total_elevation += point.elevation();
-        }
-        magnitude_ = total_magnitude/new_points.size();
-        azimuth_ = total_azimuth/new_points.size();
-        elevation_ = total_elevation/new_points.size();
-
-        current_id++;
+    double total_magnitude = 0;
+    double total_azimuth = 0;
+    double total_elevation = 0;
+    for (auto point:new_points) {
+        total_magnitude += point.magnitude();
+        total_azimuth += point.azimuth();
+        total_elevation += point.elevation();
     }
+    int n = new_points.size();
+    magnitude_ = total_magnitude/n;
+    azimuth_ = total_azimuth/n;
+    elevation_ = total_elevation/n;
+
+    current_id++;
+}
 
 Cluster::BoundingBox Cluster::ConstructBoundingBox() {
     double x_min, y_min, z_min = std::numeric_limits<double>::max();
@@ -36,15 +37,26 @@ Cluster::BoundingBox Cluster::ConstructBoundingBox() {
         z_max = std::max(z_max, point.z());
     }
 
-    double x_center = (x_max + x_min)/2.0;
-    double y_center = (y_max + y_min)/2.0;
-    double z_center = (z_max + z_min)/2.0;
+    double x_center, y_center, z_center;
+    std::tie(x_center, y_center, z_center) = Centroid();
+
     double x_dist = x_max - x_min;
     double y_dist = y_max - y_min;
     double z_dist = z_max - z_min;
 
     Cluster::BoundingBox new_box(x_center, y_center, z_center, x_dist, y_dist, z_dist);
     return new_box;
+}
+
+std::tuple<double, double, double> Cluster::Centroid() {
+    double x, y, z = 0;
+    for (auto point:points) {
+        x += point.x();
+        y += point.y();
+        z += point.z();
+    }
+    int n = points.size();
+    return {x/n, y/n, z/n};
 }
 
 double Cluster::IntraClusterDistance() {

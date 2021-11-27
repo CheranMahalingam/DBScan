@@ -3,6 +3,7 @@
 #include <dbscan/point.hpp>
 
 #include <iostream>
+#include <tuple>
 #include <vector>
 
 namespace dbscan {
@@ -19,6 +20,8 @@ public:
     Cluster(std::vector<Point> const& new_points);
 
     BoundingBox ConstructBoundingBox();
+
+    std::tuple<double, double, double> Centroid();
 
     double IntraClusterDistance();
 
